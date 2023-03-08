@@ -1,7 +1,6 @@
 import axios, {AxiosInstance} from 'axios';
 
-
-const BASE_URL = 'https://fakestoreapi.com/'
+const BASE_URL = 'https://fakestoreapi.com/';
 
 const $http: AxiosInstance = axios.create({
   baseURL: BASE_URL,

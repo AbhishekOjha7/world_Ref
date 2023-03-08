@@ -1,36 +1,58 @@
-import { Dimensions, FlatList, Image, SafeAreaView, StyleSheet, Text, View } from 'react-native'
-import React, { useEffect } from 'react'
-import { getProducts } from './action'
-import { useDispatch, useSelector } from 'react-redux'
-import { showToast } from '../../utils/commonFunction'
-import { normalize } from '../../utils/dimensions'
+import {
+  View,
+  Image,
+  Text,
+  FlatList,
+  StyleSheet,
+  Dimensions,
+  SafeAreaView,
+  TouchableOpacity,
+} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
+import {useNavigation} from '@react-navigation/native';
+// action imports
+import {getProducts} from './action';
+import React, {useEffect} from 'react';
+//utils import
+import {normalize} from '../../utils/dimensions';
+import {showToast} from '../../utils/commonFunction';
 const {width} = Dimensions.get('screen');
 const HomeScreen = () => {
-   const {product_Detail} = useSelector((store: any) => store.productReducer);
-   console.log("pp",product_Detail);
-  const dispatch=useDispatch<any>();
-  useEffect(()=>{
-     dispatch(
-       getProducts((onSuccess: boolean)=>{
-        if(onSuccess){
-          // setLoader(false)
-        }
-       },(onFailure:boolean)=>{
-         if(!onFailure){
-          // setLoader(false)
-           showToast("something went wrong")
-         }
-        
-       })
-     )
-  },[])
-  const _renderItem=({item,index}:any)=>{
-    console.log("iiii",item);
-    
-    return(
+  const navigation = useNavigation<any>();
+  const {product_Detail} = useSelector((store: any) => store.productReducer);
+  const dispatch = useDispatch<any>();
+  useEffect(() => {
+    dispatch(
+      getProducts(
+        (onSuccess: boolean) => {
+          if (onSuccess) {
+            // setLoader(false)
+          }
+        },
+        (onFailure: boolean) => {
+          if (!onFailure) {
+            // setLoader(false)
+            showToast('something went wrong');
+          }
+        },
+      ),
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const handleNavigate = (item: any) => {
+    navigation.navigate('ProductDetails', {
+      title: item?.title,
+      description: item?.description,
+      image: item?.image,
+      price: item?.price,
+    });
+  };
+  const _renderItem = ({item}: any) => {
+    return (
       <View style={styles.containerRender}>
         <Image source={{uri: item?.image}} style={styles.renderImg} />
-        <View>
+        <TouchableOpacity onPress={() => handleNavigate(item)}>
           <Text numberOfLines={1} style={styles.titleStyle}>
             {item?.title}
           </Text>
@@ -39,28 +61,23 @@ const HomeScreen = () => {
           </Text>
           <View style={styles.priceView}>
             <Text style={styles.priceColor}>${item?.price}</Text>
-            <View style={styles.ratingView}>
-              {/* <Text style={styles.ratetxt}>{item?.rating?.rate}</Text> */}
-              {/* <Image style={styles.rateImg} source={images?.star} /> */}
-            </View>
+            <View style={styles.ratingView} />
           </View>
-        </View>
+        </TouchableOpacity>
       </View>
-    )
-  }
+    );
+  };
   return (
-    <SafeAreaView style={{flex:1,backgroundColor:'white'}}>
-       <FlatList
-       data={product_Detail}
-       renderItem={_renderItem}
-       />
+    <SafeAreaView style={styles.container}>
+      <FlatList data={product_Detail} renderItem={_renderItem} />
     </SafeAreaView>
-  )
-}
+  );
+};
 
-export default HomeScreen
+export default HomeScreen;
 
 const styles = StyleSheet.create({
+  container: {flex: 1, backgroundColor: 'white'},
   containerRender: {
     flexDirection: 'row',
     borderWidth: 0.3,
@@ -69,6 +86,7 @@ const styles = StyleSheet.create({
     padding: normalize(5),
     borderRadius: normalize(5),
     marginTop: normalize(15),
+    backgroundColor: 'red',
   },
   titleStyle: {
     width: (width * 2) / 3,
@@ -108,4 +126,4 @@ const styles = StyleSheet.create({
     width: normalize(90),
     resizeMode: 'contain',
   },
-})
+});

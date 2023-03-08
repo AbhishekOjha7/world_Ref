@@ -1,4 +1,4 @@
-import { reducers } from "../reducer/rootReducer";
+import {reducers} from '../reducer/rootReducer';
 import thunkMiddleware from 'redux-thunk';
 import {createLogger} from 'redux-logger';
 import {persistStore, persistReducer} from 'redux-persist';

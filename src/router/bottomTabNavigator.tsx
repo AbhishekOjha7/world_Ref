@@ -24,7 +24,6 @@ const BottomTabNavigator = () => {
         name="Home"
         component={HomeScreen}
       />
-     
 
       <Tab.Screen
         options={{
@@ -33,7 +32,9 @@ const BottomTabNavigator = () => {
             return (
               <Image
                 style={styles.iconsize}
-                source={!focused ? localImages.profile : localImages.profile_button}
+                source={
+                  !focused ? localImages.profile : localImages.profile_button
+                }
               />
             );
           },
@@ -41,8 +42,6 @@ const BottomTabNavigator = () => {
         name="Account"
         component={Account}
       />
-
-    
     </Tab.Navigator>
   );
 };
