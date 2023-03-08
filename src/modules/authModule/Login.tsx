@@ -34,7 +34,7 @@ const Login = () => {
       <View style={styles.innerHead}>
         <Text style={styles.mobileTxt}>{'LOGIN'}</Text>
       </View>
-      <View style={styles.numberView}>
+      <View style={styles. texInputView}>
         <TextInput
           placeholder="email"
           selectionColor={'grey'}
@@ -45,8 +45,7 @@ const Login = () => {
           }}
         />
       </View>
-
-      <View style={styles.numberView}>
+      <View style={styles. texInputView}>
         <TextInput
           placeholder="password"
           value={password}
@@ -79,7 +78,7 @@ const styles = StyleSheet.create({
     lineHeight: 51,
     color: 'black',
   },
-  numberView: {
+  texInputView: {
     marginTop: 32,
     marginHorizontal: 40,
     flexDirection: 'row',
