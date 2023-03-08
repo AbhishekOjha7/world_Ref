@@ -37,7 +37,6 @@ const HomeScreen = () => {
         },
       ),
     );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleNavigate = (item: any) => {
@@ -86,16 +85,18 @@ const styles = StyleSheet.create({
     padding: normalize(5),
     borderRadius: normalize(5),
     marginTop: normalize(15),
-    backgroundColor: 'red',
+
   },
   titleStyle: {
     width: (width * 2) / 3,
     fontSize: 18,
     fontWeight: '600',
+    color:'black'
   },
   descStyle: {
     width: (width * 2) / 3,
     textAlign: 'justify',
+    color:'black'
   },
   priceView: {
     flexDirection: 'row',

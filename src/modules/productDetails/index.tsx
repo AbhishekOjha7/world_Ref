@@ -1,23 +1,30 @@
-import {Dimensions, Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {
+  Dimensions,
+  Image,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import React from 'react';
-import { normalize } from '../../utils/dimensions';
+import {normalize} from '../../utils/dimensions';
+import localImages from '../../utils/localImages';
+import { useNavigation } from '@react-navigation/native';
 const {width} = Dimensions.get('screen');
 const ProductDetails = ({route}: any) => {
+  const  navigation=useNavigation<any>();
   const {title, description, image, price} = route.params;
-  console.log('====', title, description);
-
+  const NavigateBack=()=>{
+   navigation.goBack()
+  }
   return (
-    <SafeAreaView>
-      {/* <Text>{title}</Text>
-      <Image
-        source={{uri: image}}
-        style={{resizeMode: 'contain', height: 50, width: 50}}
-      />
-      <Text>{price}</Text> */}
-
-
-
-<Image source={{uri:image}} style={styles.renderImg} />
+    <SafeAreaView style={styles.container}>
+        <TouchableOpacity style={styles.backView} onPress={NavigateBack}>
+          <Image style={styles.backIcon} source={localImages.back_button}/>
+        </TouchableOpacity>
+      <View style={styles.mainContainer}>
+        <Image source={{uri: image}} style={styles.renderImg} />
         <TouchableOpacity>
           <Text numberOfLines={1} style={styles.titleStyle}>
             {title}
@@ -29,6 +36,7 @@ const ProductDetails = ({route}: any) => {
             <Text style={styles.priceColor}>${price}</Text>
           </View>
         </TouchableOpacity>
+      </View>
     </SafeAreaView>
   );
 };
@@ -36,6 +44,9 @@ const ProductDetails = ({route}: any) => {
 export default ProductDetails;
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   renderImg: {
     height: normalize(90),
     width: normalize(90),
@@ -59,4 +70,19 @@ const styles = StyleSheet.create({
     color: 'green',
     fontSize: 18,
   },
+  mainContainer: {
+    flexDirection: 'row',
+    borderWidth: 0.3,
+    borderColor: 'light-grey',
+    margin: normalize(6),
+    padding: normalize(5),
+    borderRadius: normalize(5),
+    marginTop: normalize(15),
+  },
+  backView:{
+    marginHorizontal:normalize(20)
+  },
+  backIcon:{
+    height:normalize(30),width:normalize(30)
+  }
 });

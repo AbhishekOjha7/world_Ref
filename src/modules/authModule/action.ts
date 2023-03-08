@@ -16,8 +16,6 @@ export const login = (
           type: 'loginAction',
           payload: {Auth_Token: onSuccess.data.token},
         });
-        // console.log("nSuccess",onSuccess.data.token);
-
         successCallback(onSuccess);
       },
       (onFailure: any) => {
